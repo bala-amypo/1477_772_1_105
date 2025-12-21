@@ -23,7 +23,8 @@ public class HostServiceImpl implements HostService {
         try {
             return hostRepository.save(host);
         } catch (DataIntegrityViolationException ex) {
-            throw new IllegalArgumentException("constraint violation");
+            
+            throw new IllegalArgumentException("Email constraint violation");
         }
     }
 
