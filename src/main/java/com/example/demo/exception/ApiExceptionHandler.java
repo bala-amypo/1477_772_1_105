@@ -9,18 +9,19 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ApiExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<String> handleResourceNotFound(
-            ResourceNotFoundException ex) {
+        public ResponseEntity<String> handleResourceNotFound(
+                    ResourceNotFoundException ex) {
 
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
-    }
+                            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+                                }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleGenericException(Exception ex) {
+                                    @ExceptionHandler(Exception.class)
+                                        public ResponseEntity<String> handleGenericException(Exception ex) {
 
-        return new ResponseEntity<>(
-                "Something went wrong",
-                HttpStatus.INTERNAL_SERVER_ERROR
-        );
-    }
-}
+                                                return new ResponseEntity<>(
+                                                                "Something went wrong",
+                                                                                HttpStatus.INTERNAL_SERVER_ERROR
+                                                                                        );
+                                                                                            }
+                                                                                            }
+                                                                                            
