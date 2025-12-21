@@ -1,41 +1,34 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Host;
-import com.example.demo.service.HostService;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.example.demo.model.Host;
+import com.example.demo.service.HostService;
 
 @RestController
 @RequestMapping("/hosts")
 public class HostController {
 
-    @Autowired
-    private HostService hostService;
+    private final HostService hostService;
 
-    // Create Host
+    public HostController(HostService hostService) {
+        this.hostService = hostService;
+    }
+
     @PostMapping
     public Host createHost(@RequestBody Host host) {
         return hostService.saveHost(host);
     }
 
-    // Get All Hosts
-    @GetMapping
-    public List<Host> getAllHosts() {
-        return hostService.getAllHosts();
-    }
-
-    // Get Host By Id
     @GetMapping("/{id}")
-    public Host getHostById(@PathVariable long id) {
+    public Host getHost(@PathVariable Long id) {
         return hostService.getHostById(id);
     }
 
-    // Delete Host
-    @DeleteMapping("/{id}")
-    public String deleteHost(@PathVariable long id) {
-        hostService.deleteHost(id);
-        return "Host deleted successfully";
+    @GetMapping
+    public List<Host> getAllHosts() {
+        return hostService.getAllHosts();
     }
 }

@@ -1,17 +1,22 @@
-package com.example.demo.service;
-
-import com.example.demo.model.Host;
-import com.example.demo.repository.HostRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+package com.example.demo.service.impl;
 
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.model.Host;
+import com.example.demo.repository.HostRepository;
+import com.example.demo.service.HostService;
 
 @Service
 public class HostServiceImpl implements HostService {
 
-    @Autowired
-    private HostRepository hostRepository;
+    private final HostRepository hostRepository;
+
+    public HostServiceImpl(HostRepository hostRepository) {
+        this.hostRepository = hostRepository;
+    }
 
     @Override
     public Host saveHost(Host host) {
@@ -19,17 +24,14 @@ public class HostServiceImpl implements HostService {
     }
 
     @Override
+    public Host getHostById(Long id) {
+        return hostRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Host not found"));
+    }
+
+    @Override
     public List<Host> getAllHosts() {
         return hostRepository.findAll();
-    }
-
-    @Override
-    public Host getHostById(long id) {
-        return hostRepository.findById(id).orElse(null);
-    }
-
-    @Override
-    public void deleteHost(long id) {
-        hostRepository.deleteById(id);
     }
 }
