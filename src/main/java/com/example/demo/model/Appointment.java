@@ -1,67 +1,74 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+import java.time.LocalDate;
 
 @Entity
+@Table(name = "appointments")
 public class Appointment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    private long visitorId;
-    private long hostId;
-    private String appointmentDate;
+    @NotNull(message = "Visitor is required")
+    @ManyToOne
+    @JoinColumn(name = "visitor_id")
+    private Visitor visitor;
+
+    @NotNull(message = "Host is required")
+    @ManyToOne
+    @JoinColumn(name = "host_id")
+    private Host host;
+
+    @NotNull(message = "Appointment date is required")
+    @FutureOrPresent(message = "Appointment date cannot be in the past")
+    private LocalDate appointmentDate;
+
+    @NotBlank(message = "Purpose is required")
     private String purpose;
-    private String status;
 
-    public Appointment() {
-    }
+    @NotBlank
+    private String status = "SCHEDULED";
 
-    public Appointment(long id, long visitorId, long hostId,
-                       String appointmentDate, String purpose, String status) {
-        this.id = id;
-        this.visitorId = visitorId;
-        this.hostId = hostId;
-        this.appointmentDate = appointmentDate;
-        this.purpose = purpose;
-        this.status = status;
-    }
+    // ===== Getters & Setters =====
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(long id) {
-        this.id = id;
+
+    public Visitor getVisitor() {
+        return visitor;
     }
 
-    public long getVisitorId() {
-        return visitorId;
-    }
-    public void setVisitorId(long visitorId) {
-        this.visitorId = visitorId;
+    public void setVisitor(Visitor visitor) {
+        this.visitor = visitor;
     }
 
-    public long getHostId() {
-        return hostId;
-    }
-    public void setHostId(long hostId) {
-        this.hostId = hostId;
+    public Host getHost() {
+        return host;
     }
 
-    public String getAppointmentDate() {
+    public void setHost(Host host) {
+        this.host = host;
+    }
+
+    public LocalDate getAppointmentDate() {
         return appointmentDate;
     }
-    public void setAppointmentDate(String appointmentDate) {
+
+    public void setAppointmentDate(LocalDate appointmentDate) {
         this.appointmentDate = appointmentDate;
     }
 
     public String getPurpose() {
         return purpose;
     }
+
     public void setPurpose(String purpose) {
         this.purpose = purpose;
     }
@@ -69,6 +76,7 @@ public class Appointment {
     public String getStatus() {
         return status;
     }
+
     public void setStatus(String status) {
         this.status = status;
     }
