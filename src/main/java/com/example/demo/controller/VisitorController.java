@@ -1,41 +1,38 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Visitor;
+import com.example.demo.entity.Visitor;
 import com.example.demo.service.VisitorService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/visitors")
+@RequestMapping("/api/visitors")
+@Tag(name = "Visitors", description = "Visitor management")
 public class VisitorController {
 
-    @Autowired
-    private VisitorService visitorService;
+    private final VisitorService visitorService;
 
-    // Create Visitor
-    @PostMapping
-    public Visitor createVisitor(@RequestBody Visitor visitor) {
-        return visitorService.saveVisitor(visitor);
+    public VisitorController(VisitorService visitorService) {
+        this.visitorService = visitorService;
     }
 
-    // Get All Visitors
+    @PostMapping
+    public ResponseEntity<Visitor> createVisitor(@Valid @RequestBody Visitor visitor) {
+        return new ResponseEntity<>(visitorService.createVisitor(visitor), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public Visitor getVisitor(@PathVariable Long id) {
+        return visitorService.getVisitor(id);
+    }
+
     @GetMapping
     public List<Visitor> getAllVisitors() {
         return visitorService.getAllVisitors();
-    }
-
-    // Get Visitor By Id
-    @GetMapping("/{id}")
-    public Visitor getVisitorById(@PathVariable long id) {
-        return visitorService.getVisitorById(id);
-    }
-
-    // Delete Visitor
-    @DeleteMapping("/{id}")
-    public String deleteVisitor(@PathVariable long id) {
-        visitorService.deleteVisitor(id);
-        return "Visitor deleted successfully";
     }
 }
