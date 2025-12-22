@@ -1,50 +1,41 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "visit_logs")
 public class VisitLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "Visitor is required")
+    // Many visit logs can belong to one visitor
     @ManyToOne
     @JoinColumn(name = "visitor_id")
     private Visitor visitor;
 
-    @NotNull(message = "Host is required")
+    // Many visit logs can belong to one host
     @ManyToOne
     @JoinColumn(name = "host_id")
     private Host host;
 
     private LocalDateTime checkInTime;
-
     private LocalDateTime checkOutTime;
 
-    @NotBlank(message = "Purpose is required")
     private String purpose;
+    private boolean accessGranted;
+    private boolean alertSent;
 
-    @NotNull(message = "Access granted flag is required")
-    private Boolean accessGranted;
-
-    private Boolean alertSent = false;
-
-    @PrePersist
-    public void onCheckIn() {
-        this.checkInTime = LocalDateTime.now();
-    }
-
-    // ===== Getters & Setters =====
+    // ===== GETTERS & SETTERS =====
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Visitor getVisitor() {
@@ -67,6 +58,10 @@ public class VisitLog {
         return checkInTime;
     }
 
+    public void setCheckInTime(LocalDateTime checkInTime) {
+        this.checkInTime = checkInTime;
+    }
+
     public LocalDateTime getCheckOutTime() {
         return checkOutTime;
     }
@@ -83,19 +78,19 @@ public class VisitLog {
         this.purpose = purpose;
     }
 
-    public Boolean getAccessGranted() {
+    public boolean isAccessGranted() {
         return accessGranted;
     }
 
-    public void setAccessGranted(Boolean accessGranted) {
+    public void setAccessGranted(boolean accessGranted) {
         this.accessGranted = accessGranted;
     }
 
-    public Boolean getAlertSent() {
+    public boolean isAlertSent() {
         return alertSent;
     }
 
-    public void setAlertSent(Boolean alertSent) {
+    public void setAlertSent(boolean alertSent) {
         this.alertSent = alertSent;
     }
 }

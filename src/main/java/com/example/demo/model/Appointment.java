@@ -1,44 +1,45 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "appointments")
 public class Appointment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "Visitor is required")
+    // Many appointments can belong to one visitor
     @ManyToOne
     @JoinColumn(name = "visitor_id")
     private Visitor visitor;
 
-    @NotNull(message = "Host is required")
+    // Many appointments can belong to one host
     @ManyToOne
     @JoinColumn(name = "host_id")
     private Host host;
 
-    @NotNull(message = "Appointment date is required")
-    @FutureOrPresent(message = "Appointment date cannot be in the past")
+    @NotNull
     private LocalDate appointmentDate;
 
-    @NotBlank(message = "Purpose is required")
+    @NotBlank
     private String purpose;
 
     @NotBlank
-    private String status = "SCHEDULED";
+    private String status;
 
-    // ===== Getters & Setters =====
+    // ===== GETTERS & SETTERS =====
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Visitor getVisitor() {
