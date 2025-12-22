@@ -11,8 +11,8 @@ public class AlertNotification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String message;      // alert message
-    private boolean sent;        // whether alert is sent
+    private String message;
+    private boolean sent;
     private LocalDateTime createdAt;
 
     @ManyToOne
