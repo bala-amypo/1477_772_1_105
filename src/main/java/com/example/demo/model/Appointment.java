@@ -13,12 +13,12 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Many appointments can belong to one visitor
+    
     @ManyToOne
     @JoinColumn(name = "visitor_id")
     private Visitor visitor;
 
-    // Many appointments can belong to one host
+    
     @ManyToOne
     @JoinColumn(name = "host_id")
     private Host host;

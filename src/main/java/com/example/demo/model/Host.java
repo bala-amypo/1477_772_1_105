@@ -35,7 +35,7 @@ public class Host {
     @JsonIgnore
     private List<VisitLog> visitLogs;
 
-    // ===== GETTERS & SETTERS =====
+   
 
     public Long getId() {
         return id;
