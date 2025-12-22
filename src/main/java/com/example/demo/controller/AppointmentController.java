@@ -1,41 +1,48 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Appointment;
+import com.example.demo.entity.Appointment;
 import com.example.demo.service.AppointmentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/appointments")
+@RequestMapping("/api/appointments")
+@Tag(name = "Appointments", description = "Appointment scheduling")
 public class AppointmentController {
 
-    @Autowired
-    private AppointmentService appointmentService;
+    private final AppointmentService appointmentService;
 
-    // Create Appointment
-    @PostMapping
-    public Appointment createAppointment(@RequestBody Appointment appointment) {
-        return appointmentService.saveAppointment(appointment);
+    public AppointmentController(AppointmentService appointmentService) {
+        this.appointmentService = appointmentService;
     }
 
-    // Get All Appointments
-    @GetMapping
-    public List<Appointment> getAllAppointments() {
-        return appointmentService.getAllAppointments();
+    @PostMapping("/{visitorId}/{hostId}")
+    public ResponseEntity<Appointment> createAppointment(
+            @PathVariable Long visitorId,
+            @PathVariable Long hostId,
+            @Valid @RequestBody Appointment appointment) {
+
+        Appointment saved = appointmentService.createAppointment(visitorId, hostId, appointment);
+        return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
 
-    // Get Appointment By Id
     @GetMapping("/{id}")
-    public Appointment getAppointmentById(@PathVariable long id) {
-        return appointmentService.getAppointmentById(id);
+    public Appointment getAppointment(@PathVariable Long id) {
+        return appointmentService.getAppointment(id);
     }
 
-    // Delete Appointment
-    @DeleteMapping("/{id}")
-    public String deleteAppointment(@PathVariable long id) {
-        appointmentService.deleteAppointment(id);
-        return "Appointment deleted successfully";
+    @GetMapping("/host/{hostId}")
+    public List<Appointment> getAppointmentsByHost(@PathVariable Long hostId) {
+        return appointmentService.getAppointmentsForHost(hostId);
+    }
+
+    @GetMapping("/visitor/{visitorId}")
+    public List<Appointment> getAppointmentsByVisitor(@PathVariable Long visitorId) {
+        return appointmentService.getAppointmentsForVisitor(visitorId);
     }
 }

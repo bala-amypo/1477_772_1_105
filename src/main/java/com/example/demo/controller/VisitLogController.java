@@ -1,41 +1,48 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.VisitLog;
+import com.example.demo.entity.VisitLog;
 import com.example.demo.service.VisitLogService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.NotBlank;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/visitlogs")
+@RequestMapping("/api/visits")
+@Tag(name = "Visit Logs", description = "Visitor check-in and check-out")
 public class VisitLogController {
 
-    @Autowired
-    private VisitLogService visitLogService;
+    private final VisitLogService visitLogService;
 
-    // Create Visit Log (Check-in)
-    @PostMapping
-    public VisitLog createVisitLog(@RequestBody VisitLog visitLog) {
-        return visitLogService.saveVisitLog(visitLog);
+    public VisitLogController(VisitLogService visitLogService) {
+        this.visitLogService = visitLogService;
     }
 
-    // Get All Visit Logs
-    @GetMapping
-    public List<VisitLog> getAllVisitLogs() {
-        return visitLogService.getAllVisitLogs();
+    @PostMapping("/checkin/{visitorId}/{hostId}")
+    public ResponseEntity<VisitLog> checkIn(
+            @PathVariable Long visitorId,
+            @PathVariable Long hostId,
+            @RequestBody @NotBlank String purpose) {
+
+        VisitLog visitLog = visitLogService.checkInVisitor(visitorId, hostId, purpose);
+        return new ResponseEntity<>(visitLog, HttpStatus.CREATED);
     }
 
-    // Get Visit Log By Id
+    @PostMapping("/checkout/{visitLogId}")
+    public VisitLog checkOut(@PathVariable Long visitLogId) {
+        return visitLogService.checkOutVisitor(visitLogId);
+    }
+
+    @GetMapping("/active")
+    public List<VisitLog> getActiveVisits() {
+        return visitLogService.getActiveVisits();
+    }
+
     @GetMapping("/{id}")
-    public VisitLog getVisitLogById(@PathVariable long id) {
-        return visitLogService.getVisitLogById(id);
-    }
-
-    // Delete Visit Log
-    @DeleteMapping("/{id}")
-    public String deleteVisitLog(@PathVariable long id) {
-        visitLogService.deleteVisitLog(id);
-        return "VisitLog deleted successfully";
+    public VisitLog getVisitLog(@PathVariable Long id) {
+        return visitLogService.getVisitLog(id);
     }
 }
