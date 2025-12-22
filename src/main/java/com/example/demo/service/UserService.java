@@ -1,15 +1,14 @@
 package com.example.demo.service;
 
-import com.example.demo.model.User;
+import com.example.demo.entity.User;
+
 import java.util.List;
 
 public interface UserService {
 
-    User saveUser(User user);
+    User createUser(User user);
+
+    User getUser(Long id);
 
     List<User> getAllUsers();
-
-    User getUserById(long id);
-
-    void deleteUser(long id);
 }
