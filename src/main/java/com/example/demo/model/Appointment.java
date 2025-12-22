@@ -32,7 +32,7 @@ public class Appointment {
     @NotBlank
     private String status;
 
-    // ===== GETTERS & SETTERS =====
+    
 
     public Long getId() {
         return id;

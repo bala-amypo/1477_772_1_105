@@ -19,8 +19,6 @@ public class AlertNotification {
     @JoinColumn(name = "visit_log_id")
     private VisitLog visitLog;
 
-    // ===== GETTERS & SETTERS =====
-
     public Long getId() {
         return id;
     }
