@@ -1,42 +1,38 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.AlertNotification;
+import com.example.demo.entity.AlertNotification;
 import com.example.demo.service.AlertNotificationService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/alerts")
+@RequestMapping("/api/alerts")
+@Tag(name = "Alerts", description = "Alert notifications to hosts")
 public class AlertNotificationController {
 
-    @Autowired
-    private AlertNotificationService alertNotificationService;
+    private final AlertNotificationService alertService;
 
-    // Create Alert
-    @PostMapping
-    public AlertNotification createAlert(
-            @RequestBody AlertNotification alertNotification) {
-        return alertNotificationService.saveAlert(alertNotification);
+    public AlertNotificationController(AlertNotificationService alertService) {
+        this.alertService = alertService;
     }
 
-    // Get All Alerts
+    @PostMapping("/send/{visitLogId}")
+    public ResponseEntity<AlertNotification> sendAlert(@PathVariable Long visitLogId) {
+        AlertNotification alert = alertService.sendAlert(visitLogId);
+        return new ResponseEntity<>(alert, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public AlertNotification getAlert(@PathVariable Long id) {
+        return alertService.getAlert(id);
+    }
+
     @GetMapping
     public List<AlertNotification> getAllAlerts() {
-        return alertNotificationService.getAllAlerts();
-    }
-
-    // Get Alert By Id
-    @GetMapping("/{id}")
-    public AlertNotification getAlertById(@PathVariable long id) {
-        return alertNotificationService.getAlertById(id);
-    }
-
-    // Delete Alert
-    @DeleteMapping("/{id}")
-    public String deleteAlert(@PathVariable long id) {
-        alertNotificationService.deleteAlert(id);
-        return "Alert deleted successfully";
+        return alertService.getAllAlerts();
     }
 }
