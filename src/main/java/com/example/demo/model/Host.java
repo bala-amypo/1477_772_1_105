@@ -1,9 +1,9 @@
 package com.example.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 import java.util.List;
 
@@ -15,39 +15,75 @@ public class Host {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Host name is required")
     private String hostName;
 
-    @Email
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
+    @Column(unique = true)
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "Department is required")
     private String department;
 
-    @NotBlank
+    @NotBlank(message = "Phone number is required")
+    @Pattern(
+        regexp = "^[0-9]{10}$",
+        message = "Phone number must be exactly 10 digits"
+    )
     private String phone;
 
-    // 🔴 IMPORTANT
     @OneToMany(mappedBy = "host")
-    @JsonIgnore
     private List<Appointment> appointments;
 
     @OneToMany(mappedBy = "host")
-    @JsonIgnore
     private List<VisitLog> visitLogs;
 
-    // Getters & Setters
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getHostName() { return hostName; }
-    public void setHostName(String hostName) { this.hostName = hostName; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public String getHostName() {
+        return hostName;
+    }
 
-    public String getDepartment() { return department; }
-    public void setDepartment(String department) { this.department = department; }
+    public void setHostName(String hostName) {
+        this.hostName = hostName;
+    }
 
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public List<VisitLog> getVisitLogs() {
+        return visitLogs;
+    }
 }
