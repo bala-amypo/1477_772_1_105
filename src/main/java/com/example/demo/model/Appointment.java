@@ -1,17 +1,14 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
 import java.time.LocalDate;
 
 public class Appointment {
-
     private Long id;
     private Visitor visitor;
     private Host host;
     private LocalDate appointmentDate;
     private String purpose;
     private String status;
-
-    public Appointment() {}
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -23,9 +20,7 @@ public class Appointment {
     public void setHost(Host host) { this.host = host; }
 
     public LocalDate getAppointmentDate() { return appointmentDate; }
-    public void setAppointmentDate(LocalDate appointmentDate) {
-        this.appointmentDate = appointmentDate;
-    }
+    public void setAppointmentDate(LocalDate appointmentDate) { this.appointmentDate = appointmentDate; }
 
     public String getPurpose() { return purpose; }
     public void setPurpose(String purpose) { this.purpose = purpose; }
