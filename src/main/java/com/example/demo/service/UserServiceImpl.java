@@ -1,39 +1,21 @@
-package com.example.demo.service.impl;
+public class VisitorServiceImpl {
 
-import com.example.demo.entity.User;
-import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.repository.UserRepository;
-import com.example.demo.service.UserService;
-import org.springframework.security.crypto.password.PasswordEncoder;
+    private VisitorRepository visitorRepository;
 
-public class UserServiceImpl implements UserService {
-
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-
-    public UserServiceImpl(UserRepository repo, PasswordEncoder encoder) {
-        this.userRepository = repo;
-        this.passwordEncoder = encoder;
+    public VisitorServiceImpl(VisitorRepository visitorRepository) {
+        this.visitorRepository = visitorRepository;
     }
 
-    @Override
-    public User registerUser(User user) {
-        if (user.getRole() == null) {
-            user.setRole("USER");
-        }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+    public Visitor createVisitor(Visitor v) {
+        return visitorRepository.save(v);
     }
 
-    @Override
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    public Visitor getVisitor(Long id) {
+        return visitorRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Visitor not found"));
     }
 
-    @Override
-    public User findById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    public List<Visitor> getAllVisitors() {
+        return visitorRepository.findAll();
     }
 }
