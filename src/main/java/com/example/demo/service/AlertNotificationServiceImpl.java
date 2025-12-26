@@ -1,19 +1,47 @@
-public AlertNotification sendAlert(Long visitLogId) {
+package com.example.demo.service;
 
-    VisitLog vl = visitLogRepository.findById(visitLogId)
-        .orElseThrow(() -> new ResourceNotFoundException("VisitLog not found"));
+import com.example.demo.entity.AlertNotification;
+import com.example.demo.entity.VisitLog;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.repository.AlertNotificationRepository;
+import com.example.demo.repository.VisitLogRepository;
 
-    if (alertRepository.findByVisitLogId(visitLogId).isPresent()) {
-        throw new IllegalArgumentException("Alert already sent");
+import java.time.LocalDateTime;
+
+public class AlertNotificationServiceImpl {
+
+    private AlertNotificationRepository alertRepository;
+    private VisitLogRepository visitLogRepository;
+
+    public AlertNotificationServiceImpl() {
     }
 
-    AlertNotification alert = new AlertNotification();
-    alert.setVisitLog(vl);
-    alert.setSentTo(vl.getHost().getEmail());
-    alert.setSentAt(LocalDateTime.now());
+    public AlertNotification sendAlert(Long visitLogId) {
 
-    vl.setAlertSent(true);
-    visitLogRepository.save(vl);
+        VisitLog vl = visitLogRepository.findById(visitLogId)
+                .orElseThrow(() -> new ResourceNotFoundException("VisitLog not found"));
 
-    return alertRepository.save(alert);
+        if (alertRepository.findByVisitLogId(visitLogId).isPresent()) {
+            throw new IllegalArgumentException("Alert already sent");
+        }
+
+        AlertNotification alert = new AlertNotification();
+        alert.setVisitLog(vl);
+        alert.setSentTo(vl.getHost().getEmail());
+        alert.setSentAt(LocalDateTime.now());
+
+        vl.setAlertSent(true);
+        visitLogRepository.save(vl);
+
+        return alertRepository.save(alert);
+    }
+
+    public AlertNotification getAlert(Long id) {
+        return alertRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Alert not found"));
+    }
+
+    public java.util.List<AlertNotification> getAllAlerts() {
+        return alertRepository.findAll();
+    }
 }
