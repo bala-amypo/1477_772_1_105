@@ -2,9 +2,9 @@ package com.example.demo.repository;
 
 import com.example.demo.entity.VisitLog;
 import java.util.*;
-import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface VisitLogRepository extends JpaRepository<VisitLog, Long> {
-
+public interface VisitLogRepository {
+    VisitLog save(VisitLog v);
+    Optional<VisitLog> findById(Long id);
     List<VisitLog> findByCheckOutTimeIsNull();
 }
