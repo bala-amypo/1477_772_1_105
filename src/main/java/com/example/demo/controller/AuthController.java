@@ -1,10 +1,15 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.*;
+import com.example.demo.dto.AuthRequest;
+import com.example.demo.dto.AuthResponse;
+import com.example.demo.dto.RequestRegister;
 import com.example.demo.entity.User;
 import com.example.demo.security.JwtUtil;
 import com.example.demo.service.UserService;
-import org.springframework.http.*;
+
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,27 +19,45 @@ public class AuthController {
 
     private final UserService userService;
     private final JwtUtil jwtUtil;
-    private final PasswordEncoder encoder;
+    private final PasswordEncoder passwordEncoder;
 
-    public AuthController(UserService userService, JwtUtil jwtUtil, PasswordEncoder encoder) {
+    public AuthController(UserService userService,
+                          JwtUtil jwtUtil,
+                          PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.jwtUtil = jwtUtil;
-        this.encoder = encoder;
+        this.passwordEncoder = passwordEncoder;
     }
 
+    // -------------------------------
+    // REGISTER
+    // -------------------------------
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody User user) {
-        User saved = userService.registerUser(user);
-        return new ResponseEntity<>(saved, HttpStatus.CREATED);
+    public ResponseEntity<?> register(
+            @Valid @RequestBody RequestRegister request) {
+
+        User user = new User();
+        user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword()); // encrypted in service
+        user.setRole(request.getRole());         // default USER if null
+
+        User savedUser = userService.registerUser(user);
+
+        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
+    // -------------------------------
+    // LOGIN
+    // -------------------------------
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthRequest request) {
+    public ResponseEntity<AuthResponse> login(
+            @Valid @RequestBody AuthRequest request) {
 
         User user = userService.findByEmail(request.getEmail());
 
-        if (!encoder.matches(request.getPassword(), user.getPassword())) {
-            return new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED);
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
         String token = jwtUtil.generateToken(
