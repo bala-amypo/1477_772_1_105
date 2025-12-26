@@ -1,23 +1,19 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.AlertNotification;
-import com.example.demo.entity.VisitLog;
+import com.example.demo.entity.*;
 import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.repository.AlertNotificationRepository;
-import com.example.demo.repository.VisitLogRepository;
-
+import com.example.demo.repository.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class AlertNotificationServiceImpl {
 
     private AlertNotificationRepository alertRepository;
     private VisitLogRepository visitLogRepository;
 
-    public AlertNotificationServiceImpl() {
-    }
+    public AlertNotificationServiceImpl() {}
 
     public AlertNotification sendAlert(Long visitLogId) {
-
         VisitLog vl = visitLogRepository.findById(visitLogId)
                 .orElseThrow(() -> new ResourceNotFoundException("VisitLog not found"));
 
@@ -25,15 +21,15 @@ public class AlertNotificationServiceImpl {
             throw new IllegalArgumentException("Alert already sent");
         }
 
-        AlertNotification alert = new AlertNotification();
-        alert.setVisitLog(vl);
-        alert.setSentTo(vl.getHost().getEmail());
-        alert.setSentAt(LocalDateTime.now());
+        AlertNotification a = new AlertNotification();
+        a.setVisitLog(vl);
+        a.setSentTo(vl.getHost().getEmail());
+        a.setSentAt(LocalDateTime.now());
 
         vl.setAlertSent(true);
         visitLogRepository.save(vl);
 
-        return alertRepository.save(alert);
+        return alertRepository.save(a);
     }
 
     public AlertNotification getAlert(Long id) {
@@ -41,7 +37,7 @@ public class AlertNotificationServiceImpl {
                 .orElseThrow(() -> new ResourceNotFoundException("Alert not found"));
     }
 
-    public java.util.List<AlertNotification> getAllAlerts() {
+    public List<AlertNotification> getAllAlerts() {
         return alertRepository.findAll();
     }
 }
