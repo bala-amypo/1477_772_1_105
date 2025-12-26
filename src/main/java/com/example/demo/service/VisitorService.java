@@ -1,21 +1,13 @@
-public class VisitorServiceImpl {
+package com.example.demo.service;
 
-    private VisitorRepository visitorRepository;
+import com.example.demo.entity.Visitor;
+import java.util.List;
 
-    public VisitorServiceImpl(VisitorRepository visitorRepository) {
-        this.visitorRepository = visitorRepository;
-    }
+public interface VisitorService {
 
-    public Visitor createVisitor(Visitor v) {
-        return visitorRepository.save(v);
-    }
+    Visitor addVisitor(Visitor visitor);
 
-    public Visitor getVisitor(Long id) {
-        return visitorRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Visitor not found"));
-    }
+    Visitor getVisitorById(Long id);
 
-    public List<Visitor> getAllVisitors() {
-        return visitorRepository.findAll();
-    }
+    List<Visitor> getAllVisitors();
 }
