@@ -1,84 +1,33 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
 import java.time.LocalDate;
 
-@Entity
 public class Appointment {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    
-    @ManyToOne
-    @JoinColumn(name = "visitor_id")
     private Visitor visitor;
-
-    
-    @ManyToOne
-    @JoinColumn(name = "host_id")
     private Host host;
-
-    @NotNull
     private LocalDate appointmentDate;
-
-    @NotBlank
     private String purpose;
-
-    @NotBlank
     private String status;
 
-    
+    public Appointment() {}
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Visitor getVisitor() { return visitor; }
+    public void setVisitor(Visitor visitor) { this.visitor = visitor; }
 
-    public Visitor getVisitor() {
-        return visitor;
-    }
+    public Host getHost() { return host; }
+    public void setHost(Host host) { this.host = host; }
 
-    public void setVisitor(Visitor visitor) {
-        this.visitor = visitor;
-    }
+    public LocalDate getAppointmentDate() { return appointmentDate; }
+    public void setAppointmentDate(LocalDate appointmentDate) { this.appointmentDate = appointmentDate; }
 
-    public Host getHost() {
-        return host;
-    }
+    public String getPurpose() { return purpose; }
+    public void setPurpose(String purpose) { this.purpose = purpose; }
 
-    public void setHost(Host host) {
-        this.host = host;
-    }
-
-    public LocalDate getAppointmentDate() {
-        return appointmentDate;
-    }
-
-    public void setAppointmentDate(LocalDate appointmentDate) {
-        this.appointmentDate = appointmentDate;
-    }
-
-    public String getPurpose() {
-        return purpose;
-    }
-
-    public void setPurpose(String purpose) {
-        this.purpose = purpose;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 }
