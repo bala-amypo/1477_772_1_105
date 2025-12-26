@@ -1,61 +1,29 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
-@Entity
 public class AlertNotification {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String message;
-    private boolean sent;
-    private LocalDateTime createdAt;
-
-    @ManyToOne
-    @JoinColumn(name = "visit_log_id")
     private VisitLog visitLog;
+    private String sentTo;
+    private String alertMessage;
+    private LocalDateTime sentAt;
 
-    public Long getId() {
-        return id;
-    }
+    public AlertNotification() {}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public String getMessage() {
-        return message;
-    }
+    public VisitLog getVisitLog() { return visitLog; }
+    public void setVisitLog(VisitLog visitLog) { this.visitLog = visitLog; }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+    public String getSentTo() { return sentTo; }
+    public void setSentTo(String sentTo) { this.sentTo = sentTo; }
 
-    public boolean isSent() {
-        return sent;
-    }
+    public String getAlertMessage() { return alertMessage; }
+    public void setAlertMessage(String alertMessage) { this.alertMessage = alertMessage; }
 
-    public void setSent(boolean sent) {
-        this.sent = sent;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public VisitLog getVisitLog() {
-        return visitLog;
-    }
-
-    public void setVisitLog(VisitLog visitLog) {
-        this.visitLog = visitLog;
-    }
+    public LocalDateTime getSentAt() { return sentAt; }
+    public void setSentAt(LocalDateTime sentAt) { this.sentAt = sentAt; }
 }
