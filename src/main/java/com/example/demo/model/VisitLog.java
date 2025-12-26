@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
 import java.time.LocalDateTime;
 
@@ -25,17 +25,25 @@ public class VisitLog {
     public void setHost(Host host) { this.host = host; }
 
     public LocalDateTime getCheckInTime() { return checkInTime; }
-    public void setCheckInTime(LocalDateTime checkInTime) { this.checkInTime = checkInTime; }
+    public void setCheckInTime(LocalDateTime checkInTime) {
+        this.checkInTime = checkInTime;
+    }
 
     public LocalDateTime getCheckOutTime() { return checkOutTime; }
-    public void setCheckOutTime(LocalDateTime checkOutTime) { this.checkOutTime = checkOutTime; }
+    public void setCheckOutTime(LocalDateTime checkOutTime) {
+        this.checkOutTime = checkOutTime;
+    }
 
     public String getPurpose() { return purpose; }
     public void setPurpose(String purpose) { this.purpose = purpose; }
 
     public Boolean getAccessGranted() { return accessGranted; }
-    public void setAccessGranted(Boolean accessGranted) { this.accessGranted = accessGranted; }
+    public void setAccessGranted(Boolean accessGranted) {
+        this.accessGranted = accessGranted;
+    }
 
     public Boolean getAlertSent() { return alertSent; }
-    public void setAlertSent(Boolean alertSent) { this.alertSent = alertSent; }
+    public void setAlertSent(Boolean alertSent) {
+        this.alertSent = alertSent;
+    }
 }
