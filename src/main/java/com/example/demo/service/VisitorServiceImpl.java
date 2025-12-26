@@ -1,17 +1,16 @@
-package com.example.demo.service.impl;
+package com.example.demo.service;
 
 import com.example.demo.entity.Visitor;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.VisitorRepository;
-
 import java.util.List;
 
 public class VisitorServiceImpl {
 
-    public VisitorRepository visitorRepository;
+    private VisitorRepository visitorRepository;
 
-    public VisitorServiceImpl(VisitorRepository repo) {
-        this.visitorRepository = repo;
+    public VisitorServiceImpl(VisitorRepository visitorRepository) {
+        this.visitorRepository = visitorRepository;
     }
 
     public Visitor createVisitor(Visitor v) {
