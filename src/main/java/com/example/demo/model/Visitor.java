@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
 public class Visitor {
 
@@ -23,5 +23,7 @@ public class Visitor {
     public void setPhone(String phone) { this.phone = phone; }
 
     public String getIdProofNumber() { return idProofNumber; }
-    public void setIdProofNumber(String idProofNumber) { this.idProofNumber = idProofNumber; }
+    public void setIdProofNumber(String idProofNumber) {
+        this.idProofNumber = idProofNumber;
+    }
 }
