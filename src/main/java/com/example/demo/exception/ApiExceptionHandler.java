@@ -12,18 +12,26 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class ApiExceptionHandler {
+
+    // ----------------------------
+    // Resource Not Found (404)
+    // ----------------------------
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleResourceNotFound(
             ResourceNotFoundException ex) {
 
         Map<String, Object> response = new HashMap<>();
         response.put("timestamp", LocalDateTime.now());
-        response.put("status", 404);
+        response.put("status", HttpStatus.NOT_FOUND.value());
         response.put("error", "Not Found");
         response.put("message", ex.getMessage());
 
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
+
+    // ----------------------------
+    // Validation Errors (400)
+    // ----------------------------
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidationErrors(
             MethodArgumentNotValidException ex) {
@@ -36,45 +44,56 @@ public class ApiExceptionHandler {
 
         Map<String, Object> response = new HashMap<>();
         response.put("timestamp", LocalDateTime.now());
-        response.put("status", 400);
+        response.put("status", HttpStatus.BAD_REQUEST.value());
         response.put("error", "Bad Request");
-        response.put("message", fieldErrors);
+        response.put("message", "Validation failed");
+        response.put("fieldErrors", fieldErrors);
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    // ===== 400 BAD REQUEST (IllegalArgumentException) =====
+    // ----------------------------
+    // Illegal Argument (400)
+    // ----------------------------
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Map<String, Object>> handleIllegalArgument(
             IllegalArgumentException ex) {
 
         Map<String, Object> response = new HashMap<>();
         response.put("timestamp", LocalDateTime.now());
-        response.put("status", 400);
+        response.put("status", HttpStatus.BAD_REQUEST.value());
         response.put("error", "Bad Request");
         response.put("message", ex.getMessage());
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
+    // ----------------------------
+    // Illegal State (400)
+    // ----------------------------
     @ExceptionHandler(IllegalStateException.class)
     public ResponseEntity<Map<String, Object>> handleIllegalState(
             IllegalStateException ex) {
 
         Map<String, Object> response = new HashMap<>();
         response.put("timestamp", LocalDateTime.now());
-        response.put("status", 400);
+        response.put("status", HttpStatus.BAD_REQUEST.value());
         response.put("error", "Bad Request");
         response.put("message", ex.getMessage());
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
+    // ----------------------------
+    // Generic Exception (500)
+    // ----------------------------
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGenericException(
             Exception ex) {
 
         Map<String, Object> response = new HashMap<>();
         response.put("timestamp", LocalDateTime.now());
-        response.put("status", 500);
+        response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         response.put("error", "Internal Server Error");
         response.put("message", "Something went wrong");
 
