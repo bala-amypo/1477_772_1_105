@@ -1,14 +1,10 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
 public class Host {
-
     private Long id;
     private String hostName;
     private String email;
-    private String department;
     private String phone;
-
-    public Host() {}
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -18,9 +14,6 @@ public class Host {
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
-
-    public String getDepartment() { return department; }
-    public void setDepartment(String department) { this.department = department; }
 
     public String getPhone() { return phone; }
     public void setPhone(String phone) { this.phone = phone; }
