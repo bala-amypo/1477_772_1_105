@@ -1,30 +1,64 @@
 package com.example.demo.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Appointment {
+
     private Long id;
     private Visitor visitor;
     private Host host;
-    private LocalDate appointmentDate;
-    private String purpose;
+    private LocalDateTime appointmentTime;
     private String status;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Appointment() {
+    }
 
-    public Visitor getVisitor() { return visitor; }
-    public void setVisitor(Visitor visitor) { this.visitor = visitor; }
+    public Appointment(Long id, Visitor visitor, Host host,
+                       LocalDateTime appointmentTime, String status) {
+        this.id = id;
+        this.visitor = visitor;
+        this.host = host;
+        this.appointmentTime = appointmentTime;
+        this.status = status;
+    }
 
-    public Host getHost() { return host; }
-    public void setHost(Host host) { this.host = host; }
+    public Long getId() {
+        return id;
+    }
 
-    public LocalDate getAppointmentDate() { return appointmentDate; }
-    public void setAppointmentDate(LocalDate appointmentDate) { this.appointmentDate = appointmentDate; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getPurpose() { return purpose; }
-    public void setPurpose(String purpose) { this.purpose = purpose; }
+    public Visitor getVisitor() {
+        return visitor;
+    }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public void setVisitor(Visitor visitor) {
+        this.visitor = visitor;
+    }
+
+    public Host getHost() {
+        return host;
+    }
+
+    public void setHost(Host host) {
+        this.host = host;
+    }
+
+    public LocalDateTime getAppointmentTime() {
+        return appointmentTime;
+    }
+
+    public void setAppointmentTime(LocalDateTime appointmentTime) {
+        this.appointmentTime = appointmentTime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

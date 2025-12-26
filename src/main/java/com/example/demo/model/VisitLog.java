@@ -3,36 +3,52 @@ package com.example.demo.entity;
 import java.time.LocalDateTime;
 
 public class VisitLog {
+
     private Long id;
     private Visitor visitor;
-    private Host host;
     private LocalDateTime checkInTime;
     private LocalDateTime checkOutTime;
-    private String purpose;
-    private Boolean accessGranted;
-    private Boolean alertSent;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public VisitLog() {
+    }
 
-    public Visitor getVisitor() { return visitor; }
-    public void setVisitor(Visitor visitor) { this.visitor = visitor; }
+    public VisitLog(Long id, Visitor visitor,
+                    LocalDateTime checkInTime, LocalDateTime checkOutTime) {
+        this.id = id;
+        this.visitor = visitor;
+        this.checkInTime = checkInTime;
+        this.checkOutTime = checkOutTime;
+    }
 
-    public Host getHost() { return host; }
-    public void setHost(Host host) { this.host = host; }
+    public Long getId() {
+        return id;
+    }
 
-    public LocalDateTime getCheckInTime() { return checkInTime; }
-    public void setCheckInTime(LocalDateTime checkInTime) { this.checkInTime = checkInTime; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public LocalDateTime getCheckOutTime() { return checkOutTime; }
-    public void setCheckOutTime(LocalDateTime checkOutTime) { this.checkOutTime = checkOutTime; }
+    public Visitor getVisitor() {
+        return visitor;
+    }
 
-    public String getPurpose() { return purpose; }
-    public void setPurpose(String purpose) { this.purpose = purpose; }
+    public void setVisitor(Visitor visitor) {
+        this.visitor = visitor;
+    }
 
-    public Boolean getAccessGranted() { return accessGranted; }
-    public void setAccessGranted(Boolean accessGranted) { this.accessGranted = accessGranted; }
+    public LocalDateTime getCheckInTime() {
+        return checkInTime;
+    }
 
-    public Boolean getAlertSent() { return alertSent; }
-    public void setAlertSent(Boolean alertSent) { this.alertSent = alertSent; }
+    public void setCheckInTime(LocalDateTime checkInTime) {
+        this.checkInTime = checkInTime;
+    }
+
+    public LocalDateTime getCheckOutTime() {
+        return checkOutTime;
+    }
+
+    public void setCheckOutTime(LocalDateTime checkOutTime) {
+        this.checkOutTime = checkOutTime;
+    }
 }
