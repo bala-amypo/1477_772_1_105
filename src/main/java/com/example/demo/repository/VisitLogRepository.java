@@ -1,14 +1,9 @@
 package com.example.demo.repository;
 
-import com.example.demo.entity.VisitLog;
-import java.util.List;
-import java.util.Optional;
-
+import java.util.*;
+import com.example.demo.model.*;
 public interface VisitLogRepository {
-
-    VisitLog save(VisitLog visitLog);
-
+    VisitLog save(VisitLog v);
     Optional<VisitLog> findById(Long id);
-
-    List<VisitLog> findAll();
+    List<VisitLog> findByCheckOutTimeIsNull();
 }
