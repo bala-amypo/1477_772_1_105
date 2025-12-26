@@ -1,51 +1,28 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
 public class Visitor {
-
     private Long id;
-    private String name;
-    private String email;
+    private String fullName;
     private String phone;
+    private String email;
+    private String idProofNumber;
 
-    public Visitor() {
-    }
+    public Visitor() {}
 
-    public Visitor(Long id, String name, String email, String phone) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Long getId() {
-        return id;
-    }
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 
-    public String getName() {
-        return name;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public String getIdProofNumber() { return idProofNumber; }
+    public void setIdProofNumber(String idProofNumber) {
+        this.idProofNumber = idProofNumber;
     }
 }

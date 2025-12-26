@@ -1,41 +1,30 @@
-package com.example.demo.entity;
+package com.example.demo.model;
+
+import java.time.LocalDateTime;
 
 public class AlertNotification {
-
     private Long id;
-    private String message;
-    private boolean sent;
+    private String alertMessage;
+    private String sentTo;
+    private LocalDateTime sentAt;
+    private VisitLog visitLog;
 
-    public AlertNotification() {
+    public AlertNotification() {}
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getAlertMessage() { return alertMessage; }
+    public void setAlertMessage(String alertMessage) {
+        this.alertMessage = alertMessage;
     }
 
-    public AlertNotification(Long id, String message, boolean sent) {
-        this.id = id;
-        this.message = message;
-        this.sent = sent;
-    }
+    public String getSentTo() { return sentTo; }
+    public void setSentTo(String sentTo) { this.sentTo = sentTo; }
 
-    public Long getId() {
-        return id;
-    }
+    public LocalDateTime getSentAt() { return sentAt; }
+    public void setSentAt(LocalDateTime sentAt) { this.sentAt = sentAt; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public boolean isSent() {
-        return sent;
-    }
-
-    public void setSent(boolean sent) {
-        this.sent = sent;
-    }
+    public VisitLog getVisitLog() { return visitLog; }
+    public void setVisitLog(VisitLog visitLog) { this.visitLog = visitLog; }
 }

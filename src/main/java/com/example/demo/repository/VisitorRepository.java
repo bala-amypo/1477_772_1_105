@@ -1,14 +1,10 @@
 package com.example.demo.repository;
 
-import com.example.demo.entity.Visitor;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import com.example.demo.model.*;
 
 public interface VisitorRepository {
-
-    Visitor save(Visitor visitor);
-
+    Visitor save(Visitor v);
     Optional<Visitor> findById(Long id);
-
     List<Visitor> findAll();
 }
