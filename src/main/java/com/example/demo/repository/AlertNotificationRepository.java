@@ -1,11 +1,14 @@
 package com.example.demo.repository;
 
 import com.example.demo.entity.AlertNotification;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 public interface AlertNotificationRepository {
-    AlertNotification save(AlertNotification a);
+
+    AlertNotification save(AlertNotification notification);
+
     Optional<AlertNotification> findById(Long id);
-    Optional<AlertNotification> findByVisitLogId(Long visitLogId);
+
     List<AlertNotification> findAll();
 }

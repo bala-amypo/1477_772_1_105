@@ -1,11 +1,14 @@
 package com.example.demo.repository;
 
 import com.example.demo.entity.Host;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 public interface HostRepository {
-    Host save(Host h);
+
+    Host save(Host host);
+
     Optional<Host> findById(Long id);
-    Optional<Host> findByEmail(String email);
+
     List<Host> findAll();
 }
