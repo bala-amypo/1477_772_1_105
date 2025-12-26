@@ -1,13 +1,13 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.AlertNotification;
+import com.example.demo.model.AlertNotification;
 import java.util.List;
 
 public interface AlertNotificationService {
 
-    AlertNotification sendNotification(AlertNotification notification);
+    AlertNotification sendAlert(Long visitLogId);
 
-    AlertNotification getNotificationById(Long id);
+    AlertNotification getAlert(Long id);
 
-    List<AlertNotification> getAllNotifications();
+    List<AlertNotification> getAllAlerts();
 }

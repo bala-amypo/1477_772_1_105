@@ -1,13 +1,10 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Host;
-import java.util.List;
+import com.example.demo.model.Host;
 
 public interface HostService {
 
-    Host addHost(Host host);
+    Host createHost(Host host);
 
-    Host getHostById(Long id);
-
-    List<Host> getAllHosts();
+    Host getHost(Long id);
 }
