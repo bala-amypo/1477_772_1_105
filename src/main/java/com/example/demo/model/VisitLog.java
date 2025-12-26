@@ -1,9 +1,8 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
 import java.time.LocalDateTime;
 
 public class VisitLog {
-
     private Long id;
     private Visitor visitor;
     private Host host;
@@ -12,8 +11,6 @@ public class VisitLog {
     private String purpose;
     private Boolean accessGranted;
     private Boolean alertSent;
-
-    public VisitLog() {}
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -25,25 +22,17 @@ public class VisitLog {
     public void setHost(Host host) { this.host = host; }
 
     public LocalDateTime getCheckInTime() { return checkInTime; }
-    public void setCheckInTime(LocalDateTime checkInTime) {
-        this.checkInTime = checkInTime;
-    }
+    public void setCheckInTime(LocalDateTime checkInTime) { this.checkInTime = checkInTime; }
 
     public LocalDateTime getCheckOutTime() { return checkOutTime; }
-    public void setCheckOutTime(LocalDateTime checkOutTime) {
-        this.checkOutTime = checkOutTime;
-    }
+    public void setCheckOutTime(LocalDateTime checkOutTime) { this.checkOutTime = checkOutTime; }
 
     public String getPurpose() { return purpose; }
     public void setPurpose(String purpose) { this.purpose = purpose; }
 
     public Boolean getAccessGranted() { return accessGranted; }
-    public void setAccessGranted(Boolean accessGranted) {
-        this.accessGranted = accessGranted;
-    }
+    public void setAccessGranted(Boolean accessGranted) { this.accessGranted = accessGranted; }
 
     public Boolean getAlertSent() { return alertSent; }
-    public void setAlertSent(Boolean alertSent) {
-        this.alertSent = alertSent;
-    }
+    public void setAlertSent(Boolean alertSent) { this.alertSent = alertSent; }
 }
