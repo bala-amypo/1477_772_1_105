@@ -1,95 +1,27 @@
 package com.example.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-
-import java.util.List;
-
-@Entity
 public class Visitor {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotBlank
     private String fullName;
-
-    @Email
-    @NotBlank
     private String email;
-
-    @NotBlank
     private String phone;
-
-    @NotBlank
     private String idProofNumber;
 
-    @OneToMany(mappedBy = "visitor")
-    @JsonIgnore
-    private List<Appointment> appointments;
+    public Visitor() {}
 
-    @OneToMany(mappedBy = "visitor")
-    @JsonIgnore
-    private List<VisitLog> visitLogs;
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    // ===== GETTERS & SETTERS =====
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
 
-    public Long getId() {
-        return id;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
- 
-    public void setEmail(String email) {
-        this.email = email;
-    }
- 
-    public String getPhone() {
-        return phone;
-    }
- 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
- 
-    public String getIdProofNumber() {
-        return idProofNumber;
-    }
- 
-    public void setIdProofNumber(String idProofNumber) {
-        this.idProofNumber = idProofNumber;
-    }
-
-    public List<Appointment> getAppointments() {
-        return appointments;
-    }
-
-    public void setAppointments(List<Appointment> appointments) {
-        this.appointments = appointments;
-    }
-
-    public List<VisitLog> getVisitLogs() {
-        return visitLogs;
-    }
-
-    public void setVisitLogs(List<VisitLog> visitLogs) {
-        this.visitLogs = visitLogs;
-    }
+    public String getIdProofNumber() { return idProofNumber; }
+    public void setIdProofNumber(String idProofNumber) { this.idProofNumber = idProofNumber; }
 }
