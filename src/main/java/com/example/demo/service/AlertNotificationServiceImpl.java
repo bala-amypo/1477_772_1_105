@@ -1,43 +1,30 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.*;
-import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.repository.*;
-import java.time.LocalDateTime;
+import com.example.demo.entity.AlertNotification;
+import com.example.demo.repository.AlertNotificationRepository;
+
 import java.util.List;
 
-public class AlertNotificationServiceImpl {
+public class AlertNotificationServiceImpl implements AlertNotificationService {
 
-    private AlertNotificationRepository alertRepository;
-    private VisitLogRepository visitLogRepository;
+    private final AlertNotificationRepository notificationRepository;
 
-    public AlertNotificationServiceImpl() {}
-
-    public AlertNotification sendAlert(Long visitLogId) {
-        VisitLog vl = visitLogRepository.findById(visitLogId)
-                .orElseThrow(() -> new ResourceNotFoundException("VisitLog not found"));
-
-        if (alertRepository.findByVisitLogId(visitLogId).isPresent()) {
-            throw new IllegalArgumentException("Alert already sent");
-        }
-
-        AlertNotification a = new AlertNotification();
-        a.setVisitLog(vl);
-        a.setSentTo(vl.getHost().getEmail());
-        a.setSentAt(LocalDateTime.now());
-
-        vl.setAlertSent(true);
-        visitLogRepository.save(vl);
-
-        return alertRepository.save(a);
+    public AlertNotificationServiceImpl(AlertNotificationRepository notificationRepository) {
+        this.notificationRepository = notificationRepository;
     }
 
-    public AlertNotification getAlert(Long id) {
-        return alertRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Alert not found"));
+    @Override
+    public AlertNotification sendNotification(AlertNotification notification) {
+        return notificationRepository.save(notification);
     }
 
-    public List<AlertNotification> getAllAlerts() {
-        return alertRepository.findAll();
+    @Override
+    public AlertNotification getNotificationById(Long id) {
+        return notificationRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<AlertNotification> getAllNotifications() {
+        return notificationRepository.findAll();
     }
 }

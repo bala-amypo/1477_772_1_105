@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface AlertNotificationService {
 
-    AlertNotification sendAlert(Long visitLogId);
+    AlertNotification sendNotification(AlertNotification notification);
 
-    AlertNotification getAlert(Long id);
+    AlertNotification getNotificationById(Long id);
 
-    List<AlertNotification> getAllAlerts();
+    List<AlertNotification> getAllNotifications();
 }

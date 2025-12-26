@@ -1,27 +1,29 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Visitor;
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.VisitorRepository;
+
 import java.util.List;
 
-public class VisitorServiceImpl {
+public class VisitorServiceImpl implements VisitorService {
 
-    private VisitorRepository visitorRepository;
+    private final VisitorRepository visitorRepository;
 
     public VisitorServiceImpl(VisitorRepository visitorRepository) {
         this.visitorRepository = visitorRepository;
     }
 
-    public Visitor createVisitor(Visitor v) {
-        return visitorRepository.save(v);
+    @Override
+    public Visitor addVisitor(Visitor visitor) {
+        return visitorRepository.save(visitor);
     }
 
-    public Visitor getVisitor(Long id) {
-        return visitorRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Visitor not found"));
+    @Override
+    public Visitor getVisitorById(Long id) {
+        return visitorRepository.findById(id).orElse(null);
     }
 
+    @Override
     public List<Visitor> getAllVisitors() {
         return visitorRepository.findAll();
     }

@@ -5,11 +5,9 @@ import java.util.List;
 
 public interface VisitLogService {
 
-    VisitLog checkInVisitor(Long visitorId, Long hostId, String purpose);
+    VisitLog addVisitLog(VisitLog visitLog);
 
-    VisitLog checkOutVisitor(Long visitLogId);
+    VisitLog getVisitLogById(Long id);
 
-    List<VisitLog> getActiveVisits();
-
-    VisitLog getVisitLog(Long id);
+    List<VisitLog> getAllVisitLogs();
 }
