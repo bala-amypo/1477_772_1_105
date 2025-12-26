@@ -1,26 +1,29 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
-import com.example.demo.entity.Visitor;
+import com.example.demo.model.Visitor;
 import com.example.demo.repository.VisitorRepository;
+import com.example.demo.service.VisitorService;
 
 import java.util.List;
 
 public class VisitorServiceImpl implements VisitorService {
 
-    private final VisitorRepository visitorRepository;
+    private VisitorRepository visitorRepository;
 
+    // Constructor used in tests
     public VisitorServiceImpl(VisitorRepository visitorRepository) {
         this.visitorRepository = visitorRepository;
     }
 
     @Override
-    public Visitor addVisitor(Visitor visitor) {
+    public Visitor createVisitor(Visitor visitor) {
         return visitorRepository.save(visitor);
     }
 
     @Override
-    public Visitor getVisitorById(Long id) {
-        return visitorRepository.findById(id).orElse(null);
+    public Visitor getVisitor(Long id) {
+        return visitorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Visitor not found"));
     }
 
     @Override
