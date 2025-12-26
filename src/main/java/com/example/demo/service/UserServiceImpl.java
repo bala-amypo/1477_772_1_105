@@ -1,21 +1,30 @@
-public class VisitorServiceImpl {
+package com.example.demo.service;
 
-    private VisitorRepository visitorRepository;
+import com.example.demo.entity.User;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-    public VisitorServiceImpl(VisitorRepository visitorRepository) {
-        this.visitorRepository = visitorRepository;
+public class UserServiceImpl {
+
+    private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(UserRepository repo, PasswordEncoder encoder) {
+        this.userRepository = repo;
+        this.passwordEncoder = encoder;
     }
 
-    public Visitor createVisitor(Visitor v) {
-        return visitorRepository.save(v);
+    public User registerUser(User u) {
+        if (u.getRole() == null) {
+            u.setRole("USER");
+        }
+        u.setPassword(passwordEncoder.encode(u.getPassword()));
+        return userRepository.save(u);
     }
 
-    public Visitor getVisitor(Long id) {
-        return visitorRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Visitor not found"));
-    }
-
-    public List<Visitor> getAllVisitors() {
-        return visitorRepository.findAll();
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 }
