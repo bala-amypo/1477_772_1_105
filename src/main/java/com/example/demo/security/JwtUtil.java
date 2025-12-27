@@ -7,13 +7,11 @@ import java.util.Map;
 
 public class JwtUtil {
 
-    // These fields are set using ReflectionTestUtils in tests
+   
     private String secret;
     private long jwtExpirationMs;
 
-    /**
-     * Generate JWT token with required claims
-     */
+   
     public String generateToken(
             String username,
             String role,
@@ -36,9 +34,6 @@ public class JwtUtil {
                 .compact();
     }
 
-    /**
-     * Validate token and return claims
-     */
     public Jws<Claims> validateAndGetClaims(String token) {
         return Jwts.parser()
                 .setSigningKey(secret.getBytes())
