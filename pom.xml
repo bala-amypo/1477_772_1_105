@@ -44,8 +44,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- ================= TESTING (CRITICAL) ================= -->
-
+        
         <!-- TestNG -->
         <dependency>
             <groupId>org.testng</groupId>
