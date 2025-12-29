@@ -10,7 +10,6 @@ public class VisitorServiceImpl implements VisitorService {
 
     private VisitorRepository visitorRepository;
 
-    // Constructor used in tests
     public VisitorServiceImpl(VisitorRepository visitorRepository) {
         this.visitorRepository = visitorRepository;
     }
@@ -23,7 +22,8 @@ public class VisitorServiceImpl implements VisitorService {
     @Override
     public Visitor getVisitor(Long id) {
         return visitorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Visitor not found"));
+                .orElseThrow(() ->
+                        new RuntimeException("Visitor not found"));
     }
 
     @Override
